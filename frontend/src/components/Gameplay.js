@@ -14,8 +14,8 @@ function Gameplay() {
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [timer, setTimer] = useState(10);
   const [usersInRoom, setUsersInRoom] = useState([]);
-  const [timerExpired, setTimerExpired] = useState(false);
-  const [userAnswerSubmitted, setUserAnswerSubmitted] = useState(false);
+  
+  
   const [gameDuration, setGameDuration] = useState(50);
   const [gameStarted, setGameStarted] = useState(false);
 
@@ -56,7 +56,7 @@ function Gameplay() {
         setGameStarted(true)
         setTimer(10); // Reset the timer for the new question
         setUserAnswer("");
-        setUserAnswerSubmitted(false);
+       
         setIsLastQuestion(false);
       });
 
@@ -65,18 +65,18 @@ function Gameplay() {
         console.log("game over client side");
 
         setIsLastQuestion(true);
-        setTimerExpired(true);
+       
 
         // Calculate the final score here if needed
       });
     }
-  }, [socket, roomId, userId]);
+  }, [socket, roomId, userId,currentQuestionIndex]);
 
 
 
 useEffect(() => {
     // Start a timer for each question
-    if (gameStarted == true) {
+    if (gameStarted === true) {
       const interval = setInterval(() => {
         if (gameDuration > 0) {
           setGameDuration(gameDuration - 1);
@@ -87,7 +87,7 @@ useEffect(() => {
         clearInterval(interval);
       };
     }
-  }, [gameDuration,gameStarted]);
+  }, [gameDuration,gameStarted,roomId]);
 
 
 
@@ -104,7 +104,7 @@ useEffect(() => {
           setTimer(timer - 1);
         } else {
           // Handle time's up, move to the next question
-          setTimerExpired(true);
+          
   
           // Emit "game-started" unconditionally
           socket.emit("game-started", roomId, currentQuestionIndex);
@@ -135,7 +135,7 @@ useEffect(() => {
       // Award 10 points for a correct answer
       setScore(score + 10);
     }
-    setUserAnswerSubmitted(true);
+    
     console.log("submit answer ");
     socket.emit("game-started", roomId, currentQuestionIndex);
     // Move to the next question if questions are defined

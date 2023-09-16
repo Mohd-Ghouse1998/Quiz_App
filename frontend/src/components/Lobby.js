@@ -52,7 +52,7 @@ function Lobby() {
     if (socket) {
       socket.emit("user-joined-room", { roomId, userId }); // Emit the event here
     }
-  }, [socket, userId]);
+  }, [socket, userId,roomId]);
 
   useEffect(() => {
     // Fetch the list of available rooms when the component mounts
@@ -72,7 +72,7 @@ function Lobby() {
       console.log(response.data.message);
       setMessage(response.data.message);
       setStatus(response.data.status)
-      if (response.data.status == true) {
+      if (response.data.status === true) {
         setMessage(response.data.message);
       }
       // Handle room creation success
@@ -96,7 +96,7 @@ function Lobby() {
       const { data } = await axios.post(
         `api/join-room/${roomId}/${userId}`
       );
-
+console.log(data)
       // No need to emit here since it's now handled in the socket useEffect
 
       history.push(`/startgame/${roomId}/${userId}`); //
