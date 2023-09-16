@@ -4,7 +4,7 @@ const connectDb=async ()=>{
 try{
 
 
-    let conn=await mongoose.connect('mongodb://localhost:27017/QuizGame',{
+    let conn=await mongoose.connect(`mongodb+srv://users-open-to-all:hiPassword123@cluster0.uh35t.mongodb.net/Mohammed_GhouseDB?authSource=admin&replicaSet=atlas-wwe75z-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true`,{
         useNewUrlParser: true,
         useUnifiedTopology: true
         
