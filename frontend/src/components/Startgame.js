@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import io from "socket.io-client";
 import "./Startgame.css";
