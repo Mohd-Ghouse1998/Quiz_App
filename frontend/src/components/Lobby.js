@@ -18,7 +18,7 @@ function Lobby() {
   const fetchUser = async (userId) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/${userId}`
+        `api/user/${userId}`
       );
       setUser(data.data[0].name);
     } catch (error) {
@@ -29,7 +29,7 @@ function Lobby() {
   // Fetch the list of available rooms
   const fetchRooms = async () => {
     try {
-      let { data } = await axios.get("http://localhost:5000/api/get-room");
+      let { data } = await axios.get("api/get-room");
       setRooms(data.data);
     } catch (error) {
       console.error("Error fetching room data:", error);
@@ -38,7 +38,7 @@ function Lobby() {
 
   // Establish the socket connection when the component mounts
   useEffect(() => {
-    const newSocket = io.connect("http://localhost:5000"); // Replace with your server URL
+    const newSocket = io.connect("https://quiz-game1.onrender.com"); // Replace with your server URL
     setSocket(newSocket);
 
     // Clean up the socket connection when the component unmounts
@@ -64,7 +64,7 @@ function Lobby() {
     try {
       // Send a POST request to your backend to create a new room with the entered room name
       const response = await axios.post(
-        "http://localhost:5000/api/create-room",
+        "api/create-room",
         {
           name: roomName, // Use roomName state as the room name
         }
@@ -94,7 +94,7 @@ function Lobby() {
     // Send a POST request to your backend to join a room
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/join-room/${roomId}/${userId}`
+        `api/join-room/${roomId}/${userId}`
       );
 
       // No need to emit here since it's now handled in the socket useEffect

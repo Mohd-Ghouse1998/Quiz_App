@@ -21,7 +21,7 @@ function Gameplay() {
 
   useEffect(() => {
     // Create a socket connection when the component mounts
-    const newSocket = io.connect("http://localhost:5000"); // Replace with your server URL
+    const newSocket = io.connect("https://quiz-game1.onrender.com"); // Replace with your server URL
     setSocket(newSocket);
 
     // Clean up the socket connection when the component unmounts

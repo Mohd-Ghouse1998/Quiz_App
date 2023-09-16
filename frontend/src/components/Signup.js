@@ -17,7 +17,7 @@ function Signup() {
     e.preventDefault();
     
     // Send a POST request to your backend for user registration
-  let {data}=await  axios.post('http://localhost:5000/api/createUser', formData)
+  let {data}=await  axios.post('api/createUser', formData)
      
         // Handle successful registration, such as redirecting to the login page
         setSuccessMessage(data.message);
