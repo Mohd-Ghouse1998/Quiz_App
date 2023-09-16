@@ -50,4 +50,12 @@
   }
   
   /* You can adjust the styles to match your design preferences */
-  
+  .start-new-game-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }

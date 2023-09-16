@@ -8,7 +8,7 @@ function Signup() {
     email: '',
     password: '',
   });
-  const [successMessage, setSuccessMessage] = useState(''); 
+  const [message, setSuccessMessage] = useState(''); 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -20,12 +20,17 @@ function Signup() {
   let {data}=await  axios.post('http://localhost:5000/api/createUser', formData)
      
         // Handle successful registration, such as redirecting to the login page
-        console.log(data)
         setSuccessMessage(data.message);
+        if (data.status === true) {
+          // Successful login
+          console.log(data.message);
+          setSuccessMessage(data.message);
+        }
+      
         setTimeout(() => {
         
           setSuccessMessage('');
-        }, 5000);
+        }, 3000);
         setFormData({
           name: '',
           email: '',
@@ -35,10 +40,13 @@ function Signup() {
       
   };
 
+
+ 
+
   return (
     <div className="signup-container"> {/* Apply the CSS class to the container */}
       <h2>Sign Up</h2>
-      {successMessage && <p className="success-message">{successMessage}</p>}
+    
       <form onSubmit={handleSignup}>
         <input
           type="text"
@@ -63,11 +71,15 @@ function Signup() {
         />
         <button type="submit">Sign Up</button>
       </form>
+
+      {message && (
+    <div className={`message ${message.status ? 'success' : 'error'}`} style={{ marginTop: '10px' }}>
+      {message}
+    </div>
+  )}
+
     </div>
   );
 }
 
 export default Signup;
-
-
-

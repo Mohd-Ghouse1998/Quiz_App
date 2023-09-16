@@ -1,0 +1,50 @@
+/* StartGame.css */
+
+.start-game-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .start-game-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .start-game-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .start-game-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .start-game-container li {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  ul.users-list li {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #444; /* Dark gray text color */
+  }
+
+  .room-card {
+    width: 350px;
+    margin: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    display: flex; /* Add flex display */
+    flex-direction: column; /* Stack child elements vertically */
+    align-items: center; /* Center horizontally */
+  }

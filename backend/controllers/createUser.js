@@ -8,7 +8,7 @@ let createUser = async (req, res) => {
     let { name, email, password } = req.body;
 
     if (!name || !email || !password) {
-      res.status(400).send({
+      res.send({
         status: false,
         error: true,
         message: "Please enter manadatory details",
@@ -27,7 +27,7 @@ let createUser = async (req, res) => {
 
     if (!validate.isValidEmail(email)) {
       res
-        .status(400)
+      
         .send({ status: false, message: `${email} is not a valid email` });
       return;
     }
@@ -36,14 +36,14 @@ let createUser = async (req, res) => {
 
     if (emailExists) {
       res
-        .status(400)
+       
         .send({ status: false, error: true, message: "Email already exist!" });
       return;
     }
 
     if (!(password.length >= 3) && password.length <= 15) {
       res
-        .status(400)
+        
         .send({ status: false, message: "password length must be 8 to 15" });
       return;
     }
@@ -56,13 +56,13 @@ let createUser = async (req, res) => {
 
     let saveUserData = await userModel.create(userData);
 
-    res.status(201).send({
+    res.send({
       status: true,
       message: "user successfully registerd",
       data: saveUserData,
     });
   } catch (error) {
-    return res.status(500).send({ status: false, message: error.message });
+    return res.send({ status: false, message: error.message });
   }
 };
 
@@ -73,20 +73,20 @@ const login = async function (req, res) {
     // Validation starts
     if (!validate.isValid(email)) {
       return res
-        .status(400)
+        
         .send({ status: false, message: `Email is required` });
     }
 
     if (!validate.isValidEmail(email)) {
       res
-        .status(400)
+        
         .send({ status: false, message: `${email} is not a valid email` });
       return;
     }
 
     if (!validate.isValid(password)) {
       return res
-        .status(400)
+       
         .send({ status: false, message: `Password is required` });
     }
     // Validation ends
@@ -95,7 +95,7 @@ const login = async function (req, res) {
 
     if (!user) {
       return res
-        .status(401)
+     
         .send({ status: false, message: `Invalid login credentials` });
     }
 
@@ -104,14 +104,14 @@ const login = async function (req, res) {
         expiresIn: "10h",
       });
 
-      return res.status(200).send({
+      return res.send({
         status: true,
         message: `User login successfull 😁🤟🏻`,
         data: { userId: user._id, token },
       });
     
   } catch (error) {
-    return res.status(500).send({ status: false, message: error.message });
+    return res.send({ status: false, message: error.message });
   }
 };
 
@@ -130,7 +130,4 @@ try{
 }
 
 module.exports={createUser,login,getUser}
-
-
-
 

@@ -1,79 +1,134 @@
-/* Lobby.css */
-
-/* Style for the Lobby container */
 .lobby-container {
-    text-align: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Set the container height to the viewport height */
+  background-color: #f0f0f0; /* Background color for the lobby */
   
-  /* Style for the user name */
-  .user-name {
-    font-size: 18px;
-    margin-top: 10px;
-  }
-  
-  /* Style for the Create Room button */
-  .create-room-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-  
-  /* Style for the list of rooms */
-  .room-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  /* Style for each room card */
-  .room-card {
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 10px;
-    width: 200px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* Style for the room name */
-  .room-name {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  /* Style for the Join button */
-  .join-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 15px;
-    cursor: pointer;
-  }
-  
+}
 
-  /* Home.css */
-
+.input-container {
+  text-align: center;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Lobby header styles */
 .lobby-header {
-    background-color: #007bff; /* Background color */
-    color: #fff; /* Text color */
-    padding: 10px; /* Padding around the header */
-    border-bottom: 2px solid #0056b3; /* Bottom border */
+  font-size: 30px; /* Increased font size */
+  margin-bottom: 20px;
+}
+
+/* User name styles */
+.user-name {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333; /* Text color (e.g., dark gray) */
+  font-family: 'Your Custom Font', sans-serif; /* Replace 'Your Custom Font' with your chosen font family */
+  border: 1px solid #ccc; /* Add border */
+  padding: 10px; /* Add padding */
+  background-color: #f5f5f5; /* Add background color */
+  border-radius: 4px; /* Add border radius */
+}
+/* Input and button styles for creating a room */
+input[type="text"] {
+  width: 100%;
+  padding: 15px; /* Increased padding */
+  margin-bottom: 15px; /* Increased margin */
+  font-size: 18px; /* Increased font size */
+  border: 2px solid #ccc; /* Increased border size */
+  border-radius: 6px; /* Increased border radius */
+}
+.create-room-button {
+  width: 50%; /* Adjust the width as needed */
+  padding: 15px; /* Increased padding */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 20px; /* Increased font size */
+}
+
+
+.create-room-button:hover {
+  background-color: #0056b3;
+}
+/* Room card styles */
+.room-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid #0e0505; /* Add border */
+  background-color: #f0f0f0; /* Light background color */
+  padding: 10px; /* Add padding */
+  margin: 30px;
+  max-height: 300px; /* Adjust the maximum height as needed */
+  overflow-y: auto; /* Add a vertical scrollbar if content overflows */
+}
+.room-card {
+  width: 350px;
+  margin: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  display: flex; /* Add flex display */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center horizontally */
+}
+
+.room-name {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333; /* Text color (e.g., dark gray) */
+  font-family: 'Your Custom Font', sans-serif; /* Replace 'Your Custom Font' with your chosen font family */
+  border: 1px solid #ccc; /* Add border */
+  padding: 10px; /* Add padding */
+  background-color: #f5f5f5; /* Add background color */
+  border-radius: 4px; /* Add border radius */
+}
+.join-button {
+  padding: 15px 30px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 20px;
+}
+
+.join-button:hover {
+  background-color: #45a049;
+}
+
+
+.success {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text color */
+  padding: 12px 20px; /* Padding for better spacing */
+  margin-bottom: 10px; /* Margin to separate from other elements */
+  text-align: center; /* Center-align the message */
+  border-radius: 9px; /* Rounded corners for a modern look */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  font-weight: bold; /* Bold text for emphasis */
   }
   
-  .user-name {
-    background-color: #f4f4f4; /* Background color */
-    color: #333; /* Text color */
-    border: 1px solid #ddd; /* Border */
-    padding: 10px; /* Padding around the user name */
-    border-radius: 5px; /* Rounded corners */
-    margin-top: 10px; /* Margin at the top */
+  /* Styles for error message */
+  .error {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text color */
+  padding: 12px 20px; /* Padding for better spacing */
+  margin-bottom: 10px; /* Margin to separate from other elements */
+  text-align: center; /* Center-align the message */
+  border-radius: 9px; /* Rounded corners for a modern look */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  font-weight: bold; /* Bold text for emphasis */
   }
   

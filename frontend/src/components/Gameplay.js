@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Gameplay.css";
 
 function Gameplay() {
@@ -15,6 +16,8 @@ function Gameplay() {
   const [usersInRoom, setUsersInRoom] = useState([]);
   const [timerExpired, setTimerExpired] = useState(false);
   const [userAnswerSubmitted, setUserAnswerSubmitted] = useState(false);
+  const [gameDuration, setGameDuration] = useState(50);
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     // Create a socket connection when the component mounts
@@ -44,11 +47,13 @@ function Gameplay() {
       });
 
       socket.emit("game-started", roomId, currentQuestionIndex);
+      console.log(`game started ${(currentQuestionIndex, roomId)}`);
 
-      socket.on("game-started", (question, abc) => {
+      socket.on("game-started", (question, nextQuestionIndex) => {
         // Handle the next question event
-        console.log(question, abc);
+        console.log("Received question:", question);
         setQuestions((prevQuestions) => [...prevQuestions, question]);
+        setGameStarted(true)
         setTimer(10); // Reset the timer for the new question
         setUserAnswer("");
         setUserAnswerSubmitted(false);
@@ -58,14 +63,39 @@ function Gameplay() {
       socket.on("game-over", (scores) => {
         // Handle the game over event
         console.log("game over client side");
-        
+
         setIsLastQuestion(true);
         setTimerExpired(true);
+
         // Calculate the final score here if needed
       });
     }
   }, [socket, roomId, userId]);
 
+
+
+useEffect(() => {
+    // Start a timer for each question
+    if (gameStarted == true) {
+      const interval = setInterval(() => {
+        if (gameDuration > 0) {
+          setGameDuration(gameDuration - 1);
+        }
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [gameDuration,gameStarted]);
+
+
+
+
+
+
+
+ 
   useEffect(() => {
     // Start a timer for each question
     if (currentQuestionIndex <= 4 && !isLastQuestion) {
@@ -75,28 +105,27 @@ function Gameplay() {
         } else {
           // Handle time's up, move to the next question
           setTimerExpired(true);
-          if (!userAnswerSubmitted) {
-            // User hasn't submitted an answer, so emit "submit-answer"
-            socket.emit("submit-answer", roomId, currentQuestionIndex);
-          }
-
+  
+          // Emit "game-started" unconditionally
+          socket.emit("game-started", roomId, currentQuestionIndex);
+  
           if (currentQuestionIndex < 4) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setTimer(10);
           } else {
             // If it's the last question, set isLastQuestion to true
-           // setIsLastQuestion(true);
+            // setIsLastQuestion(true);
             clearInterval(interval);
           }
         }
       }, 1000);
-
+  
       return () => {
         clearInterval(interval);
       };
     }
-  }, [currentQuestionIndex, timer, roomId, socket, userAnswerSubmitted, isLastQuestion]);
-
+  }, [currentQuestionIndex, timer, roomId, socket, isLastQuestion]);
+  
   const handleAnswerSubmit = () => {
     // Check if the user's answer is correct and questions are defined
     if (
@@ -107,7 +136,8 @@ function Gameplay() {
       setScore(score + 10);
     }
     setUserAnswerSubmitted(true);
-    socket.emit("submit-answer", roomId, currentQuestionIndex);
+    console.log("submit answer ");
+    socket.emit("game-started", roomId, currentQuestionIndex);
     // Move to the next question if questions are defined
     if (currentQuestionIndex < 4) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -130,6 +160,7 @@ function Gameplay() {
           ))}
         </ul>
       </div>
+      <p className="timer-text">Game Time Remaining: {gameDuration} seconds</p>
       {currentQuestionIndex < questions.length && !isLastQuestion ? (
         <div className="question-container">
           <h3>Question {currentQuestionIndex + 1}</h3>
@@ -155,6 +186,9 @@ function Gameplay() {
         <div className="game-over-container">
           <h3>Game Over</h3>
           <p>Your Score: {score}</p>
+          <Link to={`/lobby/${userId}`}>
+    <button className="start-new-game-button">Lobby</button>
+  </Link>
         </div>
       ) : (
         <p>Loading questions...</p>

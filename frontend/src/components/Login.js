@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import './Login.css'
+import './Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [message, setMessage] = useState('');
+  const history = useHistory();
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const history = useHistory();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,16 +29,32 @@ function Login() {
         formData,
         config
       );
-let id=data.data.userId
-      history.push(`/lobby/${id}`);
+
+      setMessage(data.message);
+
+      if (data.status === true) {
+        // Successful login
+        console.log(data.message);
+        let id = data.data.userId;
+        history.push(`/lobby/${id}`);
+      }
+
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
     } catch (error) {
       console.log(error.message);
+      // Handle network errors or other exceptions here
+      setMessage('An error occurred during login.');
     }
   };
 
   return (
-    <div className="login-container"> {/* Apply the CSS class to the container */}
+    <div className="login-container">
       <h2>Login</h2>
+
+
+
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -54,7 +71,13 @@ let id=data.data.userId
           onChange={handleInputChange}
         />
         <button type="submit">Login</button>
+
+
       </form>
+      {message && <div className={`message ${message.status ? 'success' : 'error'}`}style={{ marginTop: '10px' }}>
+
+        {message}
+      </div>}
     </div>
   );
 }
