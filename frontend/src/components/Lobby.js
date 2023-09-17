@@ -18,7 +18,7 @@ function Lobby() {
   const fetchUser = async (userId) => {
     try {
       const { data } = await axios.get(
-        `api/user/${userId}`
+        `https://quiz-game1.onrender.com/api/user/${userId}`
       );
       setUser(data.data[0].name);
     } catch (error) {
@@ -29,7 +29,7 @@ function Lobby() {
   // Fetch the list of available rooms
   const fetchRooms = async () => {
     try {
-      let { data } = await axios.get("api/get-room");
+      let { data } = await axios.get("https://quiz-game1.onrender.com/api/get-room");
       setRooms(data.data);
     } catch (error) {
       console.error("Error fetching room data:", error);
@@ -64,7 +64,7 @@ function Lobby() {
     try {
       // Send a POST request to your backend to create a new room with the entered room name
       const response = await axios.post(
-        "api/create-room",
+        "https://quiz-game1.onrender.com/api/create-room",
         {
           name: roomName, // Use roomName state as the room name
         }
@@ -94,7 +94,7 @@ function Lobby() {
     // Send a POST request to your backend to join a room
     try {
       const { data } = await axios.post(
-        `api/join-room/${roomId}/${userId}`
+        `https://quiz-game1.onrender.com/api/join-room/${roomId}/${userId}`
       );
 console.log(data)
       // No need to emit here since it's now handled in the socket useEffect
