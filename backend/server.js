@@ -139,7 +139,8 @@ io.on("connection", (socket) => {
 
   // Define the "game-started" event listener outside of the "join-room" event listener
 });
-module.exports = {server,io}
+
 server.listen(process.env.PORT || 5000, () => {
   console.log(`Express is running on port ${process.env.PORT || 5000}`);
 });
+module.exports = {server,io}
