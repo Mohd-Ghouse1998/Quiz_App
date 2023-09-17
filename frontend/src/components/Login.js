@@ -24,7 +24,7 @@ function Login() {
         },
       };
 
-      const { data } = await axios.post("api/login", formData, config);
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/login`, formData, config);
       console.log(`status=false ${data.message}`);
       setMessage(data.message);
 
