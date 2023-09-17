@@ -56,14 +56,14 @@ function Lobby() {
 
   useEffect(() => {
     // Fetch the list of available rooms when the component mounts
-    if (socket) { // Add a conditional check here
-      socket.on("new-room-created", () => {
-        fetchRooms();
-      });
-    }
+    // if (socket) { // Add a conditional check here
+    //   socket.on("new-room-created", () => {
+    //     fetchRooms();
+    //   });
+    // }
     fetchUser(userId);
     fetchRooms();
-  }, [userId,socket]);
+  }, [userId]);
 
   const createRoom = async () => {
     try {

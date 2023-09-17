@@ -1,7 +1,7 @@
 const roomModel = require("../models/roomModel");
 const userModel=require('../models/userModel')
 const play=require('../controllers/gameplayController')
-const io=require('../server')
+
 
 
 let createRoom = async (req,res) => {
@@ -23,7 +23,7 @@ let createRoom = async (req,res) => {
 
     let roomData=await roomModel.create(newRoom)
     //io.emit('room-created', roomData);
-    io.io.emit("new-room-created")
+   
     res.send({
         status: true,
         message: "Room successfully created",
