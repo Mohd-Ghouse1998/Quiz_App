@@ -29,7 +29,7 @@ function Login() {
         formData,
         config
       );
-
+console.log(data)
       setMessage(data.message);
 
       if (data.status === true) {
@@ -43,7 +43,7 @@ function Login() {
         setMessage('');
       }, 3000);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       // Handle network errors or other exceptions here
       setMessage('An error occurred during login.');
     }
