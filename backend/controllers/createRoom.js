@@ -23,7 +23,7 @@ let createRoom = async (req,res) => {
 
     let roomData=await roomModel.create(newRoom)
     //io.emit('room-created', roomData);
-    io.emit("new-room-created")
+    io.io.emit("new-room-created")
     res.send({
         status: true,
         message: "Room successfully created",
